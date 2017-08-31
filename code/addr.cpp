@@ -8,8 +8,10 @@ int main()
         "038109007313a5807b2eccc082c8c3fbb988a973cacf1a7df9ce725c31b14776");
     assert(success);
     // Get public key.
-    bc::ec_point public_key = bc::secret_to_public_key(secret);
-    std::cout << "Public key: " << bc::encode_hex(public_key) << std::endl;
+    bc::ec_compressed public_key;
+    bool pub_success = bc::secret_to_public(public_key, secret);
+    assert(pub_success);
+    std::cout << "Public key: " << bc::encode_base16(public_key) << std::endl;
 
     // Create Bitcoin address.
     // Normally you can use:
@@ -39,4 +41,3 @@ int main()
     std::cout << "Address: " << address << std::endl;
     return 0;
 }
-
